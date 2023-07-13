@@ -4,6 +4,7 @@ class Server {
     constructor(){
         this.App = Express();
         this.Port = process.env.PORT
+        this.UsersPath = "/Api/Users"
         //middlewares
         this.Middlewares();
         //Routing
@@ -17,32 +18,7 @@ class Server {
 
     }
     Routes(){
-        this.App.get("/home",(req, res) =>{
-            res.status(403).json({
-                "message":"Home Page" 
-            });
-        })
-        this.App.post("/home",(req, res) =>{
-            res.status(403).json({
-                "message":"Post Api" 
-            });
-        })
-        this.App.delete("/home",(req, res) =>{
-            res.status(403).json({
-                "message":"Delete Api" 
-            });
-        })
-        this.App.put("/home",(req, res) =>{
-            res.status(403).json({
-                "message":"Put Api" 
-            });
-        })
-        this.App.patch("/home",(req, res) =>{
-            res.status(403).json({
-                "message":"Patch Api" 
-            });
-        })
-
+        this.App.use(this.UsersPath, require("../Routes/User.Routes.js"))
     }
     Listten(){
         this.App.listen(this.Port, ()=>{
